@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Day7
@@ -11,6 +12,7 @@ namespace Day7
 	class Program
 	{
 		static Dictionary<string, string> wires;
+		static Dictionary<string, ushort> values;
 		//static int count = 0;
 		static void Main(string[] args)
 		{
@@ -19,26 +21,29 @@ namespace Day7
 			{
 				input = sr.ReadToEnd();
 			}
-			//input = "123 -> x\n456 -> y\nx AND y -> d\nx OR y -> e\nx LSHIFT 2 -> f\ny RSHIFT 2 -> g\nNOT x -> h\nNOT y -> i";
 			string[] inputArray = Regex.Split(input, "\n");
 
 			wires = new Dictionary<string, string>();
+			values = new Dictionary<string, ushort>();
+			values.Add("b", 3176);
 			string[] splitLine;
 
 			foreach (string line in inputArray)
 			{
 				splitLine = Regex.Split(line, " -> ");
 				wires.Add(splitLine[1], splitLine[0]);
-				Console.WriteLine(splitLine[1] + " " + splitLine[0]);
 			}
-
 			Console.WriteLine(CalculateValue("a"));
 			Console.ReadKey();
 		}
 
 		static ushort CalculateValue(string wireName)
 		{
-
+			if (values.ContainsKey(wireName))
+			{
+				return values[wireName];
+			}
+			ushort val = 0;
 			if (Regex.IsMatch(wireName, @"^\d+$"))
 			{
 				return ushort.Parse(wireName);
@@ -47,11 +52,11 @@ namespace Day7
 			string[] instructions = Regex.Split(wires[wireName], " ");
 			if (instructions.Count() == 1)
 			{
-				return CalculateValue(instructions[0]);
+				val = CalculateValue(instructions[0]);
 			}
 			else if (instructions.Count() == 2)
 			{
-				return (ushort)~CalculateValue(instructions[1]);
+				val = (ushort)~CalculateValue(instructions[1]);
 			}
 			else if (instructions.Count() == 3)
 			{
@@ -60,16 +65,21 @@ namespace Day7
 				switch (instructions[1])
 				{
 					case "AND":
-						return (ushort)(CalculateValue(input1) & CalculateValue(input2));
+						val = (ushort)(CalculateValue(input1) & CalculateValue(input2));
+						break;
 					case "OR":
-						return (ushort)(CalculateValue(input1) | CalculateValue(input2));
+						val = (ushort)(CalculateValue(input1) | CalculateValue(input2));
+						break;
 					case "LSHIFT":
-						return (ushort)(CalculateValue(input1) << CalculateValue(input2));
+						val = (ushort)(CalculateValue(input1) << CalculateValue(input2));
+						break;
 					case "RSHIFT":
-						return (ushort)(CalculateValue(input1) >> CalculateValue(input2));
+						val = (ushort)(CalculateValue(input1) >> CalculateValue(input2));
+						break;
 				}
 			}
-			return 0;
+			values.Add(wireName, val);
+			return val;
 		}
 	}
 }
