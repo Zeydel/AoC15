@@ -12,12 +12,8 @@ namespace Day5
 	{
 		static void Main(string[] args)
 		{
-			string input;
-			using (StreamReader sr = new StreamReader(@"C:\Users\msj\source\repos\AoC15\Day5\input.txt"))
-			{
-				input = sr.ReadToEnd();
-			}
-			string[] inputArray = Regex.Split(input, "\n");
+			string path = @"..\..\input.txt"; 
+			string[] inputArray = System.IO.File.ReadAllLines(path);
 
 			char[] vowels = { 'a', 'e', 'i', 'o', 'u' };
 			string[] badSequences = {"ab", "cd", "pq", "xy" };

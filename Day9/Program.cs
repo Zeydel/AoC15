@@ -12,11 +12,12 @@ namespace Day9
 	{
 		static void Main(string[] args)
 		{
-			string[] input = System.IO.File.ReadAllLines(@"C:\Users\msj\source\repos\AoC15\Day9\input.txt");
+			string path = @"..\..\input.txt";
+			string[] inputArray = System.IO.File.ReadAllLines(path);
 
 			Dictionary<string, Dictionary<string, int>> cities = new Dictionary<string, Dictionary<string, int>>();
 
-			foreach(string str in input)
+			foreach(string str in inputArray)
 			{
 				string[] splitString = str.Split(' ');
 

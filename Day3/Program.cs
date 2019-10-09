@@ -11,11 +11,8 @@ namespace Day3
 	{
 		static void Main(string[] args)
 		{
-			string input;
-			using (StreamReader sr = new StreamReader(@"C:\Users\msj\source\repos\AoC15\Day3\input.txt"))
-			{
-				input = sr.ReadToEnd();
-			}
+			string path = @"..\..\input.txt";
+			string input = System.IO.File.ReadAllText(path);
 
 			HashSet<Coordinate> coordinates = new HashSet<Coordinate>();
 

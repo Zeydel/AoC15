@@ -12,12 +12,8 @@ namespace Day6
 	{
 		static void Main(string[] args)
 		{
-			string input;
-			using (StreamReader sr = new StreamReader(@"C:\Users\msj\source\repos\AoC15\Day6\input.txt"))
-			{
-				input = sr.ReadToEnd();
-			}
-			string[] inputArray = Regex.Split(input, "\n");
+			string path = @"..\..\input.txt";
+			string[] inputArray = System.IO.File.ReadAllLines(path);
 
 			int[,] lights = new int[1000, 1000];
 			for (int i = 0; i < lights.GetLength(0); i++)

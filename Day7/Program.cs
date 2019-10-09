@@ -16,12 +16,8 @@ namespace Day7
 		//static int count = 0;
 		static void Main(string[] args)
 		{
-			string input;
-			using (StreamReader sr = new StreamReader(@"C:\Users\msj\source\repos\AoC15\Day7\input.txt"))
-			{
-				input = sr.ReadToEnd();
-			}
-			string[] inputArray = Regex.Split(input, "\n");
+			string path = @"..\..\input.txt";
+			string[] inputArray = System.IO.File.ReadAllLines(path);
 
 			wires = new Dictionary<string, string>();
 			values = new Dictionary<string, ushort>();

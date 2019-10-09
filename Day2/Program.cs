@@ -12,12 +12,9 @@ namespace Day2
 	{
 		static void Main(string[] args)
 		{
-			string input;
-			using (StreamReader sr = new StreamReader(@"C:\Users\msj\source\repos\AoC15\Day2\input.txt"))
-			{
-				input = sr.ReadToEnd();
-			}
-			string[] inputArray = Regex.Split(input, "\n");
+
+			string path = @"..\..\input.txt";
+			string[] inputArray = System.IO.File.ReadAllLines(path);
 
 			int paperTotal = 0;
 			int ribbonTotal = 0;
